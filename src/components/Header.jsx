@@ -13,8 +13,15 @@ function Header() {
         <NavLink to="/food-diary" className="mx-5">
           Food Diary
         </NavLink>
-        <NavLink to="/profile" className="ml-auto mr-10">
-          Profile
+        <NavLink
+          to="/profile"
+          className="ml-auto mr-10 flex flex-col items-center justify-between"
+        >
+          <div>{`${userInfo.firstName.slice(0, 1)}.${userInfo.lastName.slice(
+            0,
+            1,
+          )}`}</div>
+          <span>{`${userInfo.todaysCalories}/${userInfo.dailyCalories}`}</span>
         </NavLink>
       </ul>
     </nav>

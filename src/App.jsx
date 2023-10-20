@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import FoodDiary from "./pages/FoodDiary";
 import Profile from "./pages/Profile";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,12 +18,34 @@ export const AppContext = createContext();
 
 function App() {
   const [userInfo, setUserInfo] = useState({
-    FirstName: "x",
-    LastName: "d",
-    Calorie: 0,
+    firstName: "",
+    lastName: "",
+    dailyCalories: 0,
+    todaysCalories: 0,
   });
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const parsedUserData = JSON.parse(storedUserData);
+      setUserInfo(parsedUserData);
+    }
+    const storedCurrentDate = localStorage.getItem("currentDate");
+    const today = new Date().toLocaleDateString();
+    if (storedCurrentDate) {
+      if (storedCurrentDate !== today) {
+        setUserInfo((prev) => {
+          return { ...prev, todaysCalories: 0 };
+        });
+      }
+    }
+    localStorage.setItem("currentDate", new Date().toLocaleDateString());
+  }, []);
+
   const updateUserInfo = (newUserInfo) => {
-    setUserInfo(newUserInfo);
+    setUserInfo((prev) => {
+      return { ...prev, ...newUserInfo };
+    });
   };
 
   return (
