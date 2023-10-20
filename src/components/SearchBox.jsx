@@ -2,9 +2,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import magnifier from "../assets/images/magnifier.png";
+import placeholder from "../assets/images/placeholder.png";
+import plus from "../assets/images/plus.svg";
+import info from "../assets/images/info.svg";
 
-function SearchBox() {
-  //   const [searchResults, setSearchResults] = useState([]);
+function SearchBox({ changeSelectedFood }) {
   const [searchText, setSearchText] = useState("");
   const queryClient = useQueryClient();
 
@@ -33,7 +35,6 @@ function SearchBox() {
       queryClient.invalidateQueries(["foods", searchText.trim()]);
     }
   }, [searchText, queryClient]);
-
   const handleInputChange = (event) => {
     setSearchText(event.target.value);
   };
@@ -54,11 +55,35 @@ function SearchBox() {
           return (
             <div
               key={`${uuidv4()}`}
-              className="s:h-20 s:w-52 s:mx-5 my-3 h-24 w-60 border border-gray-500 sm:mx-10 sm:h-24 sm:w-60 md:w-[20rem]"
+              className="s:h-20 s:w-52 s:mx-5 my-3 flex h-24 w-60 items-center border border-gray-500 sm:mx-10 sm:h-24 sm:w-60 md:w-[20rem]"
             >
-              <div></div>
-              <div></div>
-              <div></div>
+              <div className="flex h-full w-[4rem] md:w-[5.5rem]">
+                <img
+                  src={food.food.image ? food.food.image : placeholder}
+                  className="w-full object-cover"
+                />
+              </div>
+              <div className="flex h-[70%] flex-1 flex-col justify-center">
+                <div className="ml-2 flex flex-row items-center overflow-hidden">
+                  <span className="mr-1 h-[100%] max-w-[80px] overflow-hidden whitespace-nowrap text-lg font-bold sm:max-w-[110px] md:max-w-[120px]">
+                    {food.food.label}
+                  </span>
+                  <img
+                    src={info}
+                    className="w-5 invert-[0.4]"
+                    onClick={() => changeSelectedFood(food.food)}
+                  />
+                </div>
+                <span className="ml-2 text-xs">
+                  {food.food.nutrients.ENERC_KCAL | 0}kcal per 100g
+                </span>
+              </div>
+              <div className="flex h-full w-[3rem] items-center justify-center md:w-[4rem]">
+                <img
+                  src={plus}
+                  className="h-[1.5rem] w-[1.5rem] invert-[0.4] filter md:h-[2rem] md:w-[2rem]"
+                />
+              </div>
             </div>
           );
         })}
