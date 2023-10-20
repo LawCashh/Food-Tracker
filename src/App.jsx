@@ -23,6 +23,7 @@ function App() {
     dailyCalories: 0,
     todaysCalories: 0,
   });
+  const [todaysDiary, setTodaysDiary] = useState([]);
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
@@ -30,6 +31,13 @@ function App() {
       const parsedUserData = JSON.parse(storedUserData);
       setUserInfo(parsedUserData);
     }
+
+    const storedTodaysDiary = localStorage.getItem("todaysDiary");
+    if (storedTodaysDiary) {
+      const parsedTodaysDiary = JSON.parse(storedTodaysDiary);
+      setTodaysDiary(parsedTodaysDiary);
+    }
+
     const storedCurrentDate = localStorage.getItem("currentDate");
     const today = new Date().toLocaleDateString();
     if (storedCurrentDate) {
@@ -37,6 +45,7 @@ function App() {
         setUserInfo((prev) => {
           return { ...prev, todaysCalories: 0 };
         });
+        setTodaysDiary([]);
       }
     }
     localStorage.setItem("currentDate", new Date().toLocaleDateString());
@@ -48,10 +57,42 @@ function App() {
     });
   };
 
+  const removeItemDiary = (itemId) => {
+    const itemCalories = todaysDiary.find((item) => item.id === itemId).kcal;
+    const updatedTodaysDiary = todaysDiary.filter((item) => item.id !== itemId);
+    setTodaysDiary(updatedTodaysDiary);
+    localStorage.setItem("todaysDiary", JSON.stringify(updatedTodaysDiary));
+    const newUserInfo = {
+      ...userInfo,
+      todaysCalories: userInfo.todaysCalories - itemCalories,
+    };
+    localStorage.setItem("userData", JSON.stringify(newUserInfo));
+    updateUserInfo(newUserInfo);
+  };
+
+  const addItemDiary = (item) => {
+    const newDiary = [...todaysDiary, item];
+    localStorage.setItem("todaysDiary", JSON.stringify(newDiary));
+    setTodaysDiary((prev) => [...prev, item]);
+    const newUserInfo = {
+      ...userInfo,
+      todaysCalories: userInfo.todaysCalories + item.kcal,
+    };
+    localStorage.setItem("userData", JSON.stringify(newUserInfo));
+  };
+
   return (
     <div className="flex h-[100dvh] flex-col">
       <QueryClientProvider client={queryClient}>
-        <AppContext.Provider value={{ userInfo, updateUserInfo }}>
+        <AppContext.Provider
+          value={{
+            userInfo,
+            updateUserInfo,
+            todaysDiary,
+            addItemDiary,
+            removeItemDiary,
+          }}
+        >
           <BrowserRouter>
             <Header />
             <Routes>

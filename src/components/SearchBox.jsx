@@ -6,7 +6,7 @@ import placeholder from "../assets/images/placeholder.png";
 import plus from "../assets/images/plus.svg";
 import info from "../assets/images/info.svg";
 
-function SearchBox({ changeSelectedFood }) {
+function SearchBox({ changeSelectedFoodInfo, changeSelectedFoodToAdd }) {
   const [searchText, setSearchText] = useState("");
   const queryClient = useQueryClient();
 
@@ -71,7 +71,7 @@ function SearchBox({ changeSelectedFood }) {
                   <img
                     src={info}
                     className="w-5 invert-[0.4]"
-                    onClick={() => changeSelectedFood(food.food)}
+                    onClick={() => changeSelectedFoodInfo(food.food)}
                   />
                 </div>
                 <span className="ml-2 text-xs">
@@ -82,6 +82,7 @@ function SearchBox({ changeSelectedFood }) {
                 <img
                   src={plus}
                   className="h-[1.5rem] w-[1.5rem] invert-[0.4] filter md:h-[2rem] md:w-[2rem]"
+                  onClick={() => changeSelectedFoodToAdd(food.food)}
                 />
               </div>
             </div>
