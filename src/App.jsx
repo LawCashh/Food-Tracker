@@ -49,7 +49,7 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-[100dvh] flex-col">
+    <div className="flex h-[100dvh] flex-col">
       <QueryClientProvider client={queryClient}>
         <AppContext.Provider value={{ userInfo, updateUserInfo }}>
           <BrowserRouter>

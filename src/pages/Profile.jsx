@@ -48,7 +48,9 @@ function Profile() {
               {...field}
               type="text"
               id="firstname"
-              className="border border-gray-600 p-3 text-sm text-blue-800 focus:outline-blue-800"
+              className={`border border-gray-600 p-3 text-sm text-blue-800 focus:outline-blue-800 ${
+                errors.firstname ? "mb-0" : "mb-5"
+              }`}
             />
           )}
         />
@@ -70,7 +72,9 @@ function Profile() {
               {...field}
               type="text"
               id="lastname"
-              className=" border border-gray-600 p-3 text-sm text-blue-800 focus:outline-blue-800"
+              className={`border border-gray-600 p-3 text-sm text-blue-800 focus:outline-blue-800 ${
+                errors.lastname ? "mb-0" : "mb-5"
+              }`}
             />
           )}
         />
@@ -102,7 +106,9 @@ function Profile() {
               {...field}
               type="text"
               id="calorieintake"
-              className=" border border-gray-600 p-3 text-sm text-blue-800 focus:outline-blue-800"
+              className={`border border-gray-600 p-3 text-sm text-blue-800 focus:outline-blue-800 ${
+                errors.calorieintake ? "mb-0" : "mb-5"
+              }`}
             />
           )}
         />
@@ -111,7 +117,7 @@ function Profile() {
             {errors.calorieintake.message}
           </span>
         )}
-        <button className="w-[6.5rem] self-end rounded-sm border border-slate-700 bg-white px-5 py-[0.4rem] text-sm text-slate-700">
+        <button className="mt-5 w-[6.5rem] self-end rounded-sm border border-slate-700 bg-white px-5 py-[0.4rem] text-sm text-slate-700">
           Save
         </button>
       </form>
