@@ -5,3 +5,6 @@
 .active {
   border-bottom: 1px solid black;
 }
+.active:last-of-type {
+  border: none;
+}
