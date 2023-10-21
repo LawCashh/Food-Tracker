@@ -47,7 +47,7 @@ function MyIntake() {
   }, [todaysDiary]);
 
   return (
-    <div className="flex w-[100%] flex-col items-center s:my-5 s:w-[50%]">
+    <div className="flex h-[100px] w-[100%] flex-col items-center s:my-5 s:h-auto s:w-[50%]">
       <h1 className="w-full text-center text-2xl s:border-l s:border-black">
         My intake
       </h1>
