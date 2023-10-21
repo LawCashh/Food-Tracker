@@ -2,6 +2,7 @@ import SearchBox from "../components/SearchBox";
 import InfoModal from "../components/InfoModal";
 import { useState } from "react";
 import AddItemModal from "../components/AddItemModal";
+import MyIntake from "../components/MyIntake";
 
 function Home() {
   const [selectedFoodInfo, setSelectedFoodInfo] = useState(null);
@@ -21,11 +22,12 @@ function Home() {
   };
 
   return (
-    <main className="flex-1 overflow-scroll">
+    <main className="flex flex-1 flex-col overflow-scroll s:flex-row">
       <SearchBox
         changeSelectedFoodInfo={changeSelectedFoodInfo}
         changeSelectedFoodToAdd={changeSelectedFoodToAdd}
       />
+      <MyIntake />
       <InfoModal
         isOpen={selectedFoodInfo !== null}
         onClose={clearSelectedFoodInfo}

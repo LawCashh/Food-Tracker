@@ -17,7 +17,7 @@ function Header() {
           to="/profile"
           className="ml-auto mr-10 flex h-[90%] flex-col items-center justify-center"
         >
-          <div className=" rounded-[50%] border-[0.5px] border-gray-700 bg-slate-300 p-[0.4rem] text-center text-sm">{`${userInfo.firstName.slice(
+          <div className="h-9 w-9 rounded-[50%] border-[0.5px] border-gray-700 bg-slate-300 p-[0.4rem] text-center text-sm">{`${userInfo.firstName.slice(
             0,
             1,
           )}.${userInfo.lastName.slice(0, 1)}`}</div>
