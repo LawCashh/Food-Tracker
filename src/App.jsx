@@ -1,10 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createContext, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import FoodDiary from "./pages/FoodDiary";
 import Profile from "./pages/Profile";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createContext, useEffect, useState } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,7 +29,12 @@ function App() {
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
-      const parsedUserData = JSON.parse(storedUserData);
+      let parsedUserData = JSON.parse(storedUserData);
+      parsedUserData = {
+        ...parsedUserData,
+        todaysCalories: parseInt(parsedUserData.todaysCalories),
+        dailyCalories: parseInt(parsedUserData.dailyCalories),
+      };
       setUserInfo(parsedUserData);
     }
 
@@ -71,9 +77,10 @@ function App() {
   };
 
   const addItemDiary = (item) => {
-    const newDiary = [...todaysDiary, item];
+    const newDiaryId = uuidv4();
+    const newDiary = [...todaysDiary, { id: newDiaryId, ...item }];
     localStorage.setItem("todaysDiary", JSON.stringify(newDiary));
-    setTodaysDiary((prev) => [...prev, item]);
+    setTodaysDiary((prev) => [...prev, { id: newDiaryId, ...item }]);
     const newUserInfo = {
       ...userInfo,
       todaysCalories: userInfo.todaysCalories + item.kcal,

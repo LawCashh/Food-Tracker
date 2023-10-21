@@ -39,8 +39,8 @@ function SearchBox({ changeSelectedFoodInfo, changeSelectedFoodToAdd }) {
     setSearchText(event.target.value);
   };
   return (
-    <div className="s:w-[50%] s:items-start flex min-h-[24rem] w-[100%] flex-col items-center">
-      <div className="s:w-52 s:mx-5 relative mx-10 my-5 w-60 sm:mx-10 sm:w-60 md:w-[20rem]">
+    <div className="flex min-h-[24rem] w-[100%] flex-col items-center s:w-[50%] s:items-start">
+      <div className="relative mx-10 my-5 w-60 s:mx-5 s:w-52 sm:mx-10 sm:w-60 md:w-[20rem]">
         <input
           className="w-full rounded-sm border border-gray-500 p-2 pl-7 focus:outline-gray-500"
           type="text"
@@ -55,7 +55,7 @@ function SearchBox({ changeSelectedFoodInfo, changeSelectedFoodToAdd }) {
           return (
             <div
               key={`${uuidv4()}`}
-              className="s:h-20 s:w-52 s:mx-5 my-3 flex h-24 w-60 items-center border border-gray-500 sm:mx-10 sm:h-24 sm:w-60 md:w-[20rem]"
+              className="my-3 flex h-24 w-60 items-center border border-gray-500 s:mx-5 s:h-20 s:w-52 sm:mx-10 sm:h-24 sm:w-60 md:w-[20rem]"
             >
               <div className="flex h-full w-[4rem] md:w-[5.5rem]">
                 <img
@@ -70,7 +70,7 @@ function SearchBox({ changeSelectedFoodInfo, changeSelectedFoodToAdd }) {
                   </span>
                   <img
                     src={info}
-                    className="w-5 invert-[0.4]"
+                    className="w-5 cursor-pointer invert-[0.4]"
                     onClick={() => changeSelectedFoodInfo(food.food)}
                   />
                 </div>
@@ -81,7 +81,7 @@ function SearchBox({ changeSelectedFoodInfo, changeSelectedFoodToAdd }) {
               <div className="flex h-full w-[3rem] items-center justify-center md:w-[4rem]">
                 <img
                   src={plus}
-                  className="h-[1.5rem] w-[1.5rem] invert-[0.4] filter md:h-[2rem] md:w-[2rem]"
+                  className="h-[1.5rem] w-[1.5rem] cursor-pointer invert-[0.4] filter md:h-[2rem] md:w-[2rem]"
                   onClick={() => changeSelectedFoodToAdd(food.food)}
                 />
               </div>

@@ -32,7 +32,6 @@ function Home() {
         title={selectedFoodInfo ? selectedFoodInfo.label : ""}
         nutrients={selectedFoodInfo ? selectedFoodInfo.nutrients : {}}
       />
-      //TODO: make this modal
       <AddItemModal
         isOpen={selectedFoodToAdd !== null}
         onClose={clearSelectedFoodToAdd}
