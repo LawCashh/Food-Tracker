@@ -52,6 +52,16 @@ function App() {
           return { ...prev, todaysCalories: 0 };
         });
         setTodaysDiary([]);
+        if (storedUserData) {
+          let parsedUserData = JSON.parse(storedUserData);
+          parsedUserData = {
+            ...parsedUserData,
+            todaysCalories: 0,
+            dailyCalories: parseInt(parsedUserData.dailyCalories),
+          };
+          localStorage.setItem("userData", JSON.stringify(parsedUserData));
+        }
+        localStorage.setItem("todaysDiary", JSON.stringify([]));
       }
     }
     localStorage.setItem("currentDate", new Date().toLocaleDateString());
